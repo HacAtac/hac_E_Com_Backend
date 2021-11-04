@@ -5,13 +5,28 @@ const Tag = require("./Tag");
 const ProductTag = require("./ProductTag");
 
 // Products belongsTo Category
-Product.belongsTo(Category); // this is the equivalent of a join table in SQL (one-to-many)
+Product.belongsTo(Category, {
+  foreignKey: "category_id",
+});
+
 // Categories have many Products
-Category.hasMany(Product); // this is the equivalent of a join table in SQL (many-to-many)
+Category.hasMany(Product, {
+  foreignKey: "category_id", // this is the foreign key in the Category table
+});
+
 // Products belongToMany Tags (through ProductTag)
-Product.belongsToMany(Tag, { through: ProductTag }); // this is the equivalent of a join table in SQL (many-to-many)
+Product.belongsToMany(Tag, {
+  through: ProductTag,
+  as: "tags",
+  foreignKey: "product_id",
+});
 // Tags belongToMany Products (through ProductTag)
-Tag.belongsToMany(Product, { through: ProductTag }); // this is the equivalent of a join table in SQL (many-to-many)  // this is the equivalent of a join table in SQL (many-to-many)
+Tag.belongsToMany(Product, {
+  through: ProductTag,
+  as: "products",
+  foreignKey: "tag_id",
+});
+
 module.exports = {
   // export all models to be used in the app (index.js)
   Product,

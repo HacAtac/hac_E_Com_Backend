@@ -8,10 +8,10 @@ Category.init(
   {
     // define columns
     id: {
-      type: DataTypes.INTEGER, // number (int) type of data in the column (id) in the table (categories) in the database
-      allowNull: false, // not null in the database (categories) in the table (categories) in the database (categories)
-      primaryKey: true, //  primary key in the database (categories) in the table (categories) in the database (categories)
-      autoIncrement: true, // auto increment in the database (categories) in the table (categories) in the database (categories)
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
     },
     category_name: {
       type: DataTypes.STRING,

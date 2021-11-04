@@ -19,27 +19,27 @@ Product.init(
     product_name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true, // this will make sure that the product name is unique in the database table (no duplicate product names)
-      price: {
-        type: DataTypes.DECIMAL(10, 2), // this will make sure that the price is a decimal number with 2 decimal places
-        allowNull: false, // this will make sure that the price is required
+    },
+    price: {
+      type: DataTypes.DECIMAL,
+      allowNull: false,
+      validate: {
+        isDecimal: true,
       },
     },
     stock: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 10, // this will make sure that the stock is set to 10 by default
-      //validates that value is numeric
+      defaultValue: 10,
       validate: {
         isNumeric: true,
       },
     },
     category_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       references: {
         model: "category",
-        key: "id", // this will make sure that the category_id is a foreign key in the category table
+        key: "id",
       },
     },
   },

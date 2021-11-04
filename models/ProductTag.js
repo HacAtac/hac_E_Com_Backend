@@ -15,7 +15,6 @@ ProductTag.init(
     },
     product_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       references: {
         model: "product",
         key: "id",
@@ -23,7 +22,6 @@ ProductTag.init(
     },
     tag_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       references: {
         model: "tag", // this is the table name of the foreign key in the database table that you want to reference
         key: "id", // this is the column name of the foreign key in the database table that you want to reference
