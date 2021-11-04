@@ -39,7 +39,7 @@ Product.init(
       allowNull: false,
       references: {
         model: "category",
-        key: "id",
+        key: "id", // this will make sure that the category_id is a foreign key in the category table
       },
     },
   },

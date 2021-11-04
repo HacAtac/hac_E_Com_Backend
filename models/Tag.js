@@ -23,7 +23,7 @@ Tag.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: "tag",
+    modelName: "tag", //this will be the table name in the database instead of the model name
   }
 );
 

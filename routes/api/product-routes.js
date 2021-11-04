@@ -7,12 +7,49 @@ const { Product, Category, Tag, ProductTag } = require("../../models");
 router.get("/", (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
+  Product.findAll({
+    include: [
+      {
+        model: Category,
+        attributes: ["name"], // only include the name of the Category
+      },
+      {
+        model: Tag,
+        attributes: ["name"], // only include the name of the Tag
+      },
+    ],
+  })
+    .then((dbProductData) => res.json(dbProductData))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 // get one product
 router.get("/:id", (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
+  Product.findOne({
+    where: {
+      id: req.params.id, // find the product with an `id` equal to `req.params.id`
+    },
+    include: [
+      {
+        model: Category,
+        attributes: ["name"], // only include the name of the Category
+      },
+      {
+        model: Tag,
+        attributes: ["name"], // only include the name of the Tag
+      },
+    ],
+  })
+    .then((dbProductData) => res.json(dbProductData))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 // create new product
@@ -73,8 +110,8 @@ router.put("/:id", (req, res) => {
         });
       // figure out which ones to remove
       const productTagsToRemove = productTags
-        .filter(({ tag_id }) => !req.body.tagIds.includes(tag_id))
-        .map(({ id }) => id);
+        .filter(({ tag_id }) => !req.body.tagIds.includes(tag_id)) // filter out the ones that are in the new list
+        .map(({ id }) => id); // get the id of each one to remove
 
       // run both actions
       return Promise.all([
@@ -91,6 +128,18 @@ router.put("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   // delete one product by its `id` value
+  Product.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((product) => {
+      res.json(product);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 module.exports = router;
