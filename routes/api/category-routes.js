@@ -54,15 +54,16 @@ router.post("/", (req, res) => {
       res.status(500).json(err);
     });
 });
-
+// The `/api/categories/:id` endpoint (update) - update a category's name by id value in the url path  (req.params.id) to the value of the `category_name` key in the req.body object
 router.put("/:id", (req, res) => {
   // update a category by its `id` value
   Category.update(
     {
-      category_name: req.body.category_name,
+      category_name: req.body.category_name, // the value to update with (new value) (the key is the column name) (the value is the new value)
     },
     {
       where: {
+        // the criteria to find the row to update (the key is the column name) (the value is the value to find)
         id: req.params.id,
       },
     }
